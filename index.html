@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>RK Group</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: radial-gradient(ellipse at center, #1a1a2e 0%, #0a0a12 100%);
+      padding: 20px;
+      overflow-x: hidden;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: clamp(20px, 4vw, 40px);
+    }
+
+    .header h1 {
+      color: #fff;
+      font-size: clamp(2rem, 7vw, 4rem);
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      text-shadow: 0 4px 30px rgba(0,0,0,0.6);
+    }
+
+    .header p {
+      color: rgba(255,255,255,0.7);
+      font-size: clamp(0.85rem, 2.5vw, 1.2rem);
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      margin-top: 6px;
+    }
+
+    /* ── Phone mockup ── */
+    .phone {
+      position: relative;
+      width: min(320px, 82vw);
+      height: min(660px, 170vw);
+      background: #111;
+      border-radius: clamp(28px, 6vw, 48px);
+      padding: clamp(8px, 2vw, 14px);
+      box-shadow:
+        0 0 0 2px #333,
+        0 30px 80px rgba(0,0,0,0.7),
+        inset 0 0 0 1px rgba(255,255,255,0.08);
+      flex-shrink: 0;
+    }
+
+    /* side buttons */
+    .phone::before {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 120px;
+      width: 3px;
+      height: 55px;
+      background: #2a2a2a;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .phone::after {
+      content: '';
+      position: absolute;
+      right: -3px;
+      top: 185px;
+      width: 3px;
+      height: 80px;
+      background: #2a2a2a;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .phone-screen {
+      width: 100%;
+      height: 100%;
+      border-radius: clamp(18px, 4vw, 34px);
+      overflow: hidden;
+      background: #000;
+      position: relative;
+    }
+
+    .phone-screen video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* top notch / punch-hole */
+    .notch {
+      position: absolute;
+      top: clamp(8px, 2vw, 14px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(100px, 30vw);
+      height: clamp(20px, 4.5vw, 30px);
+      background: #111;
+      border-radius: 0 0 16px 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      z-index: 2;
+    }
+
+    .notch .speaker {
+      width: 30px;
+      height: 4px;
+      background: #222;
+      border-radius: 4px;
+    }
+
+    .notch .camera {
+      width: 8px;
+      height: 8px;
+      background: radial-gradient(circle at 35% 35%, #2a3a5a, #0a0a1a);
+      border-radius: 50%;
+      border: 1px solid #222;
+    }
+
+    /* bottom bar (Android nav hint) */
+    .nav-bar {
+      position: absolute;
+      bottom: clamp(6px, 1.5vw, 10px);
+      left: 50%;
+      transform: translateX(-50%);
+      width: min(110px, 30vw);
+      height: 3px;
+      background: rgba(255,255,255,0.2);
+      border-radius: 4px;
+      z-index: 2;
+    }
+
+    /* ── Content below phone ── */
+    .footer {
+      text-align: center;
+      margin-top: clamp(24px, 5vw, 45px);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 50px;
+      font-size: clamp(0.95rem, 3vw, 1.15rem);
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: #fff;
+      background: linear-gradient(135deg, #d4a017, #b8860b);
+      border: none;
+      border-radius: 50px;
+      text-decoration: none;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+      box-shadow: 0 8px 30px rgba(212, 160, 23, 0.35);
+    }
+
+    .btn:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 40px rgba(212, 160, 23, 0.55);
+    }
+
+    .btn:active {
+      transform: translateY(0) scale(0.97);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="header">
+    <h1>RK Group</h1>
+    <p>Excellence in every endeavor</p>
+  </div>
+
+  <div class="phone">
+    <div class="phone-screen">
+      <video autoplay muted loop playsinline>
+        <source src="rkgroup.mp4" type="video/mp4">
+      </video>
+      <div class="notch">
+        <div class="speaker"></div>
+        <div class="camera"></div>
+      </div>
+      <div class="nav-bar"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <a href="https://rkgroup.online/" class="btn" target="_blank" rel="noopener noreferrer">Play Now</a>
+  </div>
+
+</body>
+</html>
