@@ -42,7 +42,6 @@
       margin-top: 6px;
     }
 
-    /* ── Phone mockup ── */
     .phone {
       position: relative;
       width: min(320px, 82vw);
@@ -57,7 +56,6 @@
       flex-shrink: 0;
     }
 
-    /* side buttons */
     .phone::before {
       content: '';
       position: absolute;
@@ -96,7 +94,28 @@
       display: block;
     }
 
-    /* top notch / punch-hole */
+    .sound-toggle {
+      position: absolute;
+      bottom: clamp(40px, 8vw, 60px);
+      right: clamp(10px, 2.5vw, 18px);
+      z-index: 10;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-size: 18px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s;
+    }
+
+    .sound-toggle:hover { background: rgba(0,0,0,0.7); }
+
     .notch {
       position: absolute;
       top: clamp(8px, 2vw, 14px);
@@ -128,7 +147,6 @@
       border: 1px solid #222;
     }
 
-    /* bottom bar (Android nav hint) */
     .nav-bar {
       position: absolute;
       bottom: clamp(6px, 1.5vw, 10px);
@@ -141,7 +159,6 @@
       z-index: 2;
     }
 
-    /* ── Content below phone ── */
     .footer {
       text-align: center;
       margin-top: clamp(24px, 5vw, 45px);
@@ -171,6 +188,8 @@
     .btn:active {
       transform: translateY(0) scale(0.97);
     }
+
+
   </style>
 </head>
 <body>
@@ -182,9 +201,10 @@
 
   <div class="phone">
     <div class="phone-screen">
-      <video autoplay muted loop playsinline>
+      <video id="bgVideo" autoplay muted loop playsinline preload="auto">
         <source src="rkgroup.mp4" type="video/mp4">
       </video>
+      <button class="sound-toggle" id="soundBtn">🔇</button>
       <div class="notch">
         <div class="speaker"></div>
         <div class="camera"></div>
@@ -196,6 +216,38 @@
   <div class="footer">
     <a href="https://rkgroup.online/" class="btn" target="_blank" rel="noopener noreferrer">Play Now</a>
   </div>
+
+<script>
+  const video = document.getElementById('bgVideo');
+  const btn = document.getElementById('soundBtn');
+
+  function setMuted(m) {
+    video.muted = m;
+    btn.textContent = m ? '🔇' : '🔊';
+  }
+
+  btn.addEventListener('click', () => {
+    setMuted(!video.muted);
+  });
+
+  // Try to unmute once playback starts
+  video.addEventListener('playing', function tryUnmute() {
+    video.removeEventListener('playing', tryUnmute);
+    video.muted = false;
+    video.play()
+      .then(() => { setMuted(false); })
+      .catch(() => {
+        video.muted = true;
+        document.addEventListener('click', function handler() {
+          video.muted = false;
+          video.play();
+          setMuted(false);
+          document.removeEventListener('click', handler);
+        }, { once: true });
+      });
+  });
+
+</script>
 
 </body>
 </html>
